@@ -3,25 +3,30 @@ SELECT * FROM departments;
 
 
 -- retrieve department id and name
-SELECT dept_no, dept_name FROM departments;
+SELECT  dept_no,
+        dept_name 
+FROM    departments;
 
 
 -- retrieve the department id and name where the department id is d005
-SELECT dept_no, dept_name FROM departments WHERE dept_no = 'd005';
+SELECT  dept_no,
+        dept_name
+FROM    departments 
+WHERE   dept_no = 'd005';
 
 
 -- retrieve the department id and name where the department name is Sales
 SELECT  dept_no 'Department Number', 
         dept_name 'Department Name' 
-FROM departments 
-WHERE dept_name = 'Customer Service';
+FROM    departments 
+WHERE   dept_name = 'Customer Service';
 
 
 -- retrieve the department id and name where the department name is either Sales or Development
 SELECT  dept_no 'Department Number',
         dept_name 'Department Name'
-FROM departments
-WHERE dept_name = 'Sales' OR dept_name = 'Development';
+FROM    departments
+WHERE   dept_name = 'Sales' OR dept_name = 'Development';
 
 
 -- retrieve top ten records from the employees table
@@ -30,14 +35,14 @@ LIMIT 10;
 
 
 -- how many employees are working in the departments
-SELECT dept_no, count(*) 'Number of Employees'
-FROM dept_emp de
-GROUP BY dept_no
+SELECT  dept_no, count(*) 'Number of Employees'
+FROM    dept_emp de
+GROUP BY    dept_no
 
 
 -- get the cout of employees from employees table
-SELECT count(*) 'Number of Employees'
-FROM employees;
+SELECT  count(*) 'Number of Employees'
+FROM    employees;
 
 
 -- retrieve top 5 employee records
@@ -49,7 +54,15 @@ LIMIT 5;
 SELECT  first_name,
         last_name,
         hire_date
-FROM employees
+FROM    employees
+LIMIT 5;
+
+
+-- get first_name, last_name and concatenate them using concat function using the data from employees table
+SELECT  first_name,
+        last_name,
+        CONCAT(first_name, ' ', last_name) 'Full Name'
+FROM    employees
 LIMIT 5;
 
 
