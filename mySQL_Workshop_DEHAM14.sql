@@ -420,3 +420,24 @@ DESCRIBE salaries;
 
 SELECT * FROM employees
 WHERE emp_no IN (555011, 42356, 10001);
+
+
+-- set up a tempory table from employees where emp_nr in 555011, 42356, 10001
+WITH temp_table AS (
+    SELECT * FROM employees
+    WHERE emp_no IN (555011, 42356, 10001)
+)
+SELECT * FROM temp_table;
+
+
+WITH temp_sal_table AS (
+    SELECT * FROM salaries
+    WHERE emp_no IN (555011, 42356, 10001)
+)
+SELECT * FROM temp_sal_table;
+
+
+-- join temp_table with temp_sal_table using right join
+select e.emp_no, e.birth_date, e.first_name, e.last_name, s.salary, s.from_date, s.to_date
+FROM temp_table e
+RIGHT JOIN temp_sal_table s ON e.emp_no = s.emp_no;
