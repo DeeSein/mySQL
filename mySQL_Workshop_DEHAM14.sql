@@ -326,3 +326,45 @@ SELECT e.first_name, e.last_name, s.salary FROM employees e
 INNER JOIN salaries s
 ON e.emp_no = s.emp_no
 WHERE s.salary = 158220;
+
+
+-- get the recors with emp_no 43624
+SELECT * FROM employees
+WHERE emp_no = 43624;
+
+
+-- get thte record with emp_no 43624 from salaries
+SELECT * FROM salaries
+WHERE emp_no = 43624;
+
+
+-- generate a report with employee number, first name, last name and salary
+SELECT  e.emp_no, 
+        e.first_name,
+        e.last_name,
+        s.salary 
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+LIMIT 10;
+
+
+-- generate a report with employee number equals number 43624, first name, last name and salary
+SELECT  e.emp_no,
+        e.first_name,
+        e.last_name,
+        s.salary
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no = 43624;
+
+
+-- generate a report with employee number equals number 43624, first name, last name and salary, from date and to date
+SELECT  e.emp_no,
+        e.first_name,
+        e.last_name,
+        s.salary,
+        s.from_date,
+        s.to_date
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no = 43624;
