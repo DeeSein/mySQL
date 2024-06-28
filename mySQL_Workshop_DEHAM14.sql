@@ -368,3 +368,55 @@ SELECT  e.emp_no,
 FROM employees e
 JOIN salaries s ON e.emp_no = s.emp_no
 WHERE e.emp_no = 43624;
+
+INSERT INTO employees (
+    emp_no,
+    birth_date,
+    first_name,
+    last_name,
+    gender,
+    hire_date
+  )
+VALUES (
+    555011,
+    '1886-05-15',
+    'Max',
+    'Mustermann',
+    'D',
+    '2024-06-19'
+  );
+
+select * from employees
+where emp_no = 555011;
+
+
+-- generate a report with employee 555011, first name and salary using inner join
+SELECT  e.emp_no,
+        e.first_name,
+        e.last_name,
+        s.salary,
+        s.from_date,
+        s.to_date
+FROM employees e
+JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no = 555011;
+
+
+-- generate a report with employee 555011,42356,10001, first name and salary using left join
+SELECT  e.emp_no,
+        e.first_name,
+        e.last_name,
+        s.salary,
+        s.from_date,
+        s.to_date
+FROM employees e
+LEFT JOIN salaries s ON e.emp_no = s.emp_no
+WHERE e.emp_no IN (555011,42356,10001);
+
+
+-- ANSI SQL
+
+DESCRIBE salaries;
+
+SELECT * FROM employees
+WHERE emp_no IN (555011, 42356, 10001);
