@@ -195,3 +195,134 @@ SELECT * FROM titles
 WHERE title LIKE '%AI%';
 
 
+-- get the list of titles from the titles table with titles not like AI
+SELECT * FROM titles
+WHERE title NOT LIKE '%AI%'
+LIMIT 10;
+
+
+-- get titles from titles table without dublicates but without the title AI
+SELECT DISTINCT title FROM titles
+WHERE title NOT LIKE '%AI%';
+
+
+select salary from salaries where emp_no = 10001;
+
+-- select the first name and last name from the employees table where the first name is equal to the last name
+SELECT  first_name, 
+        last_name 
+FROM    employees 
+
+
+-- sort the names alphabeticaly from the employees table
+SELECT  first_name,
+        last_name
+FROM    employees
+ORDER BY first_name, last_name
+LIMIT 10;
+
+
+-- sort the names reverse alphabeticaly from the employees table
+SELECT  first_name,
+        last_name
+FROM    employees
+ORDER BY first_name DESC, last_name DESC
+LIMIT 10;
+
+
+-- show the titles aswell
+SELECT  e.first_name,
+        e.last_name,
+        s.salary,
+        t.title
+FROM    employees e
+        INNER JOIN salaries s
+            ON e.emp_no = s.emp_no
+        INNER JOIN titles t
+            ON e.emp_no = t.emp_no
+ORDER BY s.salary DESC
+LIMIT 10;
+
+
+-- get list of departments
+SELECT * FROM departments;
+
+
+-- get list of marketing in departments
+SELECT * FROM departments 
+WHERE dept_name = 'Marketing';
+
+
+-- select marketing from departments table by dept_no
+SELECT * FROM departments
+WHERE dept_no = 'd001';
+
+
+-- get list with the following departments Marketing, Finance and Production
+SELECT * FROM departments
+WHERE dept_name IN ('Marketing', 'Finance', 'Production');
+
+
+-- get list without the following departments Marketing, Finance and Production
+SELECT * FROM departments
+WHERE dept_name NOT IN ('Marketing', 'Finance', 'Production');
+
+
+-- get the above with AND Function
+SELECT * FROM departments
+WHERE (dept_name = 'Marketing')
+AND (dept_name = 'Finance');
+
+
+-- get the above with OR Function
+SELECT * FROM departments
+WHERE (dept_name = 'Marketing')
+OR (dept_name = 'Finance');
+
+
+-- retrieve salary records with salary lesser than average salary
+SELECT * FROM salaries
+WHERE salary < (
+    SELECT AVG(salary) FROM salaries
+);
+
+
+-- cout the number of salary that is lesser than the average salary
+SELECT COUNT(*) FROM salaries
+WHERE salary < (
+    SELECT AVG(salary) FROM salaries
+);
+
+
+-- retrieve salary records with salary more than average salary and order by salary descending
+SELECT * FROM salaries
+WHERE salary > (
+    SELECT AVG(salary) FROM salaries
+)
+ORDER BY salary DESC
+LIMIT 10;
+
+
+-- get the count of salary records where salary is between 40000 and 60000
+select * from salaries
+where salary BETWEEN 40000 and 60000;
+
+
+-- get the count of salary records where salary is not between 40000 and 60000
+select * from salaries
+where salary NOT BETWEEN 40000 and 60000;
+
+
+-- get the record with the salary equal to 158220
+SELECT * FROM salaries
+WHERE salary = 158220;
+
+select * from employees 
+where emp_no = 43624;
+
+
+-- get the record with the salary equal to 158220 with the first_name and last_name
+SELECT e.first_name, e.last_name, s.salary FROM employees e
+INNER JOIN salaries s
+ON e.emp_no = s.emp_no
+WHERE s.salary = 158220;
