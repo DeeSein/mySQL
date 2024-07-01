@@ -521,3 +521,119 @@ FROM    dept_emp
 where dept_no in ('d004', 'd002', 'd007')
 GROUP BY dept_no
 HAVING count(DISTINCT emp_no) > 50000
+
+
+-- get the number of employees in each department and sort it by dept_no descending order
+SELECT  dept_no,
+        COUNT(DISTINCT emp_no) 'Number of Employees'
+FROM    dept_emp
+GROUP BY dept_no
+ORDER BY dept_no DESC
+LIMIT 10;
+
+
+-- wild card search
+-- % or _
+
+select * from employees 
+LIMIT 10;
+
+
+SELECT * FROM employees
+WHERE first_name = 'Georgi';
+
+
+SELECT * FROM employees
+WHERE first_name = 'Georgi'
+and last_name = 'Facello';
+
+
+SELECT * FROM employees
+WHERE first_name = 'Georgi'
+and last_name LIKE 'B%';
+
+
+select emp.*,de.dept_no from employees emp
+JOIN dept_emp de
+on emp.emp_no = de.emp_no
+where emp.first_name='Georgi'
+and emp.last_name like 'B%';
+
+
+select emp.*,de.dept_no,d.dept_name from employees emp
+JOIN dept_emp de
+on emp.emp_no = de.emp_no
+JOIN departments d
+on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+and emp.last_name like 'B%';
+
+
+select emp.first_name,emp.last_name,de.dept_no,d.dept_name from employees emp
+JOIN dept_emp de
+on emp.emp_no = de.emp_no
+JOIN departments d
+on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+and emp.last_name like 'B%';
+
+
+select emp.first_name,emp.last_name,de.dept_no,d.dept_name from employees emp
+JOIN dept_emp de
+on emp.emp_no = de.emp_no
+JOIN departments d
+on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+and emp.last_name like 'B%'
+and d.dept_name not like '%human%';
+
+
+select emp.first_name,emp.last_name,de.dept_no,d.dept_name from employees emp
+JOIN dept_emp de
+on emp.emp_no = de.emp_no
+JOIN departments d
+on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+and emp.last_name like 'B%'
+and d.dept_name = 'Sales';
+
+
+select  upper(emp.first_name),
+        upper(emp.last_name),
+        CONCAT(first_name,' ',last_name) as 'Full Name',
+        de.dept_no as 'Department Number',
+        d.dept_name 'Department Name'
+from employees emp
+JOIN dept_emp de on emp.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+    and emp.last_name like 'B%'
+    and d.dept_name = 'Sales';
+
+
+select  upper(emp.first_name),
+        upper(emp.last_name),
+        CONCAT(first_name,' ',last_name) as 'Full Name',
+        de.dept_no as 'Department Number',
+        d.dept_name 'Department Name',
+        SUBSTRING(first_name,1,4)
+from employees emp
+JOIN dept_emp de on emp.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+    and emp.last_name like 'B%'
+    and d.dept_name = 'Sales';
+
+
+select  upper(emp.first_name),
+        upper(emp.last_name),
+        CONCAT(first_name,' ',last_name) as 'Full Name',
+        length(last_name),
+        de.dept_no as 'Department Number',
+        d.dept_name 'Department Name',
+        SUBSTRING(first_name,1,4)
+from employees emp
+JOIN dept_emp de on emp.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+where emp.first_name='Georgi'
+    and d.dept_name = 'Sales';
