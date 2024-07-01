@@ -441,3 +441,83 @@ SELECT * FROM temp_sal_table;
 select e.emp_no, e.birth_date, e.first_name, e.last_name, s.salary, s.from_date, s.to_date
 FROM temp_table e
 RIGHT JOIN temp_sal_table s ON e.emp_no = s.emp_no;
+
+
+-- get the list of departments sorted by dept_no
+SELECT * FROM departments
+ORDER BY dept_no
+LIMIT 10;
+
+
+-- get the list of departments sorted by dept_no in descending order
+SELECT * FROM departments
+ORDER BY dept_no DESC
+LIMIT 10;
+
+
+select * from departments
+where dept_no in ('d001', 'd002', 'd003');
+
+
+select dept_no from departments
+where dept_name in ('Marketing', 'Finance', 'Human Resources')
+ORDER BY dept_no;
+
+
+select * from dept_emp
+where dept_no in ('d001', 'd002', 'd003')
+LIMIT 10;
+
+
+-- inner query 
+select * from dept_emp
+where dept_no in (
+    select dept_no
+    from departments
+    where dept_name in ('Marketing', 'Finance', 'Human Resources'))
+LIMIT 10;
+
+
+-- get the number of employees in each department
+SELECT  COUNT(DISTINCT emp_no) 'Number of Employees'
+FROM    employees
+
+
+-- get the number of employees in Marketing with sub queary from employees and dept_no 'd001'
+select * from employees
+where emp_no in
+    (select emp_no
+    from dept_emp
+    where dept_no =
+        (select dept_no
+        from departments
+        where dept_name = 'Marketing'));
+
+
+-- get the employees who are part of marketing using joins
+SELECT * FROM employees e
+JOIN dept_emp de ON e.emp_no = de.emp_no
+JOIN departments d ON de.dept_no = d.dept_no
+WHERE d.dept_name = 'Marketing';
+
+
+-- get the number of employees in each department
+SELECT  dept_no,
+        COUNT(DISTINCT emp_no) 'Number of Employees'
+FROM    dept_emp
+GROUP BY dept_no
+
+
+SELECT  dept_no,
+        COUNT(DISTINCT emp_no) 'Number of Employees'
+FROM    dept_emp
+GROUP BY dept_no
+HAVING count(DISTINCT emp_no) > 50000
+
+
+SELECT  dept_no,
+        COUNT(DISTINCT emp_no) 'Number of Employees'
+FROM    dept_emp
+where dept_no in ('d004', 'd002', 'd007')
+GROUP BY dept_no
+HAVING count(DISTINCT emp_no) > 50000
