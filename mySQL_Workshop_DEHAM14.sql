@@ -637,3 +637,51 @@ JOIN dept_emp de on emp.emp_no = de.emp_no
 JOIN departments d on de.dept_no = d.dept_no
 where emp.first_name='Georgi'
     and d.dept_name = 'Sales';
+
+
+-- Products table
+select * from Products
+
+
+-- get the employee details with the highest salary, join employees table and salaties table
+SELECT * FROM employees e
+JOIN salaries s ON e.emp_no=s.emp_no
+ORDER BY s.salary DESC
+LIMIT 1;
+
+
+-- create view table with the top ten highly paid employees
+CREATE View top_10_paid_employees_by_David AS
+SELECT  e.emp_no, 
+        e.birth_date, 
+        e.first_name, 
+        e.last_name, 
+        s.salary, 
+        s.from_date, 
+        s.to_date 
+FROM employees e
+JOIN salaries s ON e.emp_no=s.emp_no
+ORDER BY s.salary DESC
+LIMIT 10;
+
+
+-- view the top ten highly paid employees from the view table
+SELECT * FROM top_10_paid_employees_by_David;
+
+
+-- delete the view table
+DROP VIEW top_10_paid_employees_by_David;
+
+
+-- create a new table names "Orders_by_David" with order number incremented automatically along with a few fields like product number, order date, price, total , quantity, tax
+CREATE TABLE Orders_by_David (
+    order_number INT AUTO_INCREMENT PRIMARY KEY,
+    product_number VARCHAR(255),
+    order_date DATE,
+    price DECIMAL(10, 2),
+    total DECIMAL(10, 2),
+    quantity INT,
+    tax DECIMAL(10, 2)
+);
+
+
